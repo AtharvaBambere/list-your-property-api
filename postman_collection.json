@@ -1,0 +1,625 @@
+{
+	"info": {
+		"_postman_id": "9a5e2f1c-3b5e-4f8a-9d8c-1a7b5d8e4f3c",
+		"name": "Property Listing API",
+		"description": "API endpoints for the property listing backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Register a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login a user and get token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Get the currently logged in user"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints"
+		},
+		{
+			"name": "Properties",
+			"item": [
+				{
+					"name": "Get All Properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties"
+							]
+						},
+						"description": "Get all properties with optional filtering"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Property By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties/{{property_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"{{property_id}}"
+							]
+						},
+						"description": "Get a single property by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Modern Apartment\",\n    \"type\": \"Apartment\",\n    \"price\": 1500000,\n    \"state\": \"Karnataka\",\n    \"city\": \"Bangalore\",\n    \"areaSqFt\": 1200,\n    \"bedrooms\": 3,\n    \"bathrooms\": 2,\n    \"amenities\": \"lift|security|gym|garden\",\n    \"furnished\": \"Semi\",\n    \"availableFrom\": \"2023-10-15\",\n    \"listedBy\": \"Agent\",\n    \"tags\": \"gated-community|premium\",\n    \"colorTheme\": \"#4287f5\",\n    \"rating\": 4.5,\n    \"isVerified\": true,\n    \"listingType\": \"rent\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties"
+							]
+						},
+						"description": "Create a new property"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Property",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 1600000,\n    \"rating\": 4.8,\n    \"amenities\": \"lift|security|gym|garden|pool\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties/{{property_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"{{property_id}}"
+							]
+						},
+						"description": "Update a property"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Property",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties/{{property_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"{{property_id}}"
+							]
+						},
+						"description": "Delete a property"
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Properties",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"priceRange\": {\n        \"min\": 1000000,\n        \"max\": 5000000\n    },\n    \"bedroomCount\": 3,\n    \"bathroomCount\": 2,\n    \"furnished\": \"Semi\",\n    \"propertyType\": \"Apartment\",\n    \"location\": {\n        \"city\": \"Bangalore\",\n        \"state\": \"Karnataka\"\n    },\n    \"amenities\": [\"gym\", \"pool\"],\n    \"rating\": 4,\n    \"isVerified\": true,\n    \"listingType\": \"rent\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties/filter",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties",
+								"filter"
+							]
+						},
+						"description": "Filter properties with advanced criteria"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Properties with Query Params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/properties?minPrice=1000000&maxPrice=5000000&bedrooms=3&bathrooms=2&type=Bungalow&city=Coimbatore&state=Tamil Nadu&furnished=Unfurnished&listingType=rent&minRating=4&amenities=lift|pool&tags=gated-community",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"properties"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "1000000"
+								},
+								{
+									"key": "maxPrice",
+									"value": "5000000"
+								},
+								{
+									"key": "bedrooms",
+									"value": "3"
+								},
+								{
+									"key": "bathrooms",
+									"value": "2"
+								},
+								{
+									"key": "type",
+									"value": "Bungalow"
+								},
+								{
+									"key": "city",
+									"value": "Coimbatore"
+								},
+								{
+									"key": "state",
+									"value": "Tamil Nadu"
+								},
+								{
+									"key": "furnished",
+									"value": "Unfurnished"
+								},
+								{
+									"key": "listingType",
+									"value": "rent"
+								},
+								{
+									"key": "minRating",
+									"value": "4"
+								},
+								{
+									"key": "amenities",
+									"value": "lift|pool"
+								},
+								{
+									"key": "tags",
+									"value": "gated-community"
+								}
+							]
+						},
+						"description": "Get properties with query parameters for filtering"
+					},
+					"response": []
+				}
+			],
+			"description": "Property endpoints"
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "Get User Favorites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/favorites",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"favorites"
+							]
+						},
+						"description": "Get all favorites for the current user"
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Favorites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/favorites/{{property_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"favorites",
+								"{{property_id}}"
+							]
+						},
+						"description": "Add a property to favorites"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove from Favorites",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/favorites/{{property_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"favorites",
+								"{{property_id}}"
+							]
+						},
+						"description": "Remove a property from favorites"
+					},
+					"response": []
+				},
+				{
+					"name": "Check if Property is in Favorites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/favorites/{{property_id}}/check",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"favorites",
+								"{{property_id}}",
+								"check"
+							]
+						},
+						"description": "Check if a property is in the user's favorites"
+					},
+					"response": []
+				}
+			],
+			"description": "Favorites endpoints"
+		},
+		{
+			"name": "Recommendations",
+			"item": [
+				{
+					"name": "Get Recommendations Received",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/recommendations/received",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"received"
+							]
+						},
+						"description": "Get all recommendations received by the user"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/recommendations/search-users?email=test",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"search-users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test"
+								}
+							]
+						},
+						"description": "Search for users by email"
+					},
+					"response": []
+				},
+				{
+					"name": "Recommend Property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{recipient_user_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/recommendations/{{property_id}}/recommend",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"{{property_id}}",
+								"recommend"
+							]
+						},
+						"description": "Recommend a property to another user"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Recommendation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/recommendations/received/{{recommendation_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"recommendations",
+								"received",
+								"{{recommendation_id}}"
+							]
+						},
+						"description": "Remove a recommendation"
+					},
+					"response": []
+				}
+			],
+			"description": "Recommendation endpoints"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "property_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "recipient_user_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "recommendation_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 
